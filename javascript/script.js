@@ -563,7 +563,7 @@ function Wo_GetMorePosts() {
   }
   $('#posts').append('<div class="hidden loading-status"></div>');
   $('#load-more-posts').hide();
-  $('.loading-status').hide().html(' <div class="box-pik-loading"><div class="box-pik-thumbnail"></div><div class="box-pik-line-sm"></div><div class="box-pik-line-xs"></div><div class="box-pik-line-df"></div><div class="box-pik-line-lgx"></div><div class="box-pik-line-lg"></div></div>').removeClass('hidden').show();
+  $('.loading-status').hide().html('<div class="white-loading list-group"><div class="cs-loader"><div class="cs-loader-inner"><label> ●</label><label> ●</label><label> ●</label><label> ●</label><label> ●</label><label> ●</label></div></div></div>').removeClass('hidden').show();
   Wo_progressIconLoader($('#load-more-posts'));
   posts_count = 0;
   if ($('.post').length > 0) {
@@ -1285,7 +1285,7 @@ function Wo_OpenChatTab(recipient_id, group_id) {
     s: 'is_chat_on',
     recipient_id: recipient_id
   }, function (data) {
-    if(current_width < 720) {
+    if(current_width < 720 || $('body').attr('chat-off').length > 0) {
        document.location = data.url;
 
        return false;
@@ -2498,9 +2498,8 @@ function scrollContent(direction) {
 }
 
 function Wo_IsFileAllowedToUpload(filename, allowed) {
-    var extension = filename.replace(/^.*\./, '');
+    var extension = filename.replace(/^.*\./, '').toLowerCase();
     var allowed_array = allowed.split(',');
-    console.log(allowed_array);
     if (isInArray(extension, allowed_array)) {
       return true;
     }
